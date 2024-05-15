@@ -1,0 +1,58 @@
+<template>
+    <div class="carousel sm:w-full lg:w-1/3">
+        <div class="flex flex-cols gap-2">
+            <div class="w-1/2" v-for="(image, index) in images" :key="index">
+                <img class="" :src="`${image}`" :alt="`Slide ${index + 1}`" @click="toggleImage(`${image}`)">
+            </div>
+        </div>
+    </div>
+    <div class="modal-container" v-show="imageToggle != ''" @click="imageToggle = ''">
+        <div class="modal sm:w-1/2 sm:mx-5 md:w-1/2 lg:w-1/3">
+            <button @click="imageToggle = ''" class="shadow-xl">X</button>
+            <img :src="imageToggle" alt="">
+        </div>
+    </div>
+</template>
+
+<script setup lang="ts">
+import { defineProps, ref } from 'vue';
+
+const imageToggle = ref('');
+
+const props = defineProps({
+    images: Array
+});
+
+const toggleImage = (image: string) => {
+    imageToggle.value = image;
+}
+</script>
+
+<style scoped>
+.modal-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.5);
+    /* Fondo semitransparente */
+    z-index: 2;
+}
+
+.modal {
+    position: relative;
+    text-align: center;
+    z-index: 3;
+}
+
+.modal button {
+    position: absolute;
+    right: 1rem;
+    top: .5rem;
+    font-weight: 800;
+}
+</style>
