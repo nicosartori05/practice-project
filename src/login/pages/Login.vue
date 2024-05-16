@@ -96,7 +96,7 @@ const userLogIn = async () => {
         router.push('/')
         setTimeout(() => {
             location.reload();
-        }, 200);
+        }, 400);
     } catch (error) {
         console.error('Error al logear usuario:', error);
     }

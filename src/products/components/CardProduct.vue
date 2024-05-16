@@ -46,9 +46,7 @@ const goToMasterProduct = (idProduct: number) => {
 .card {
     background-color: grey;
     width: 300px;
-    max-height: 700px;
     color: white;
-    opacity: .8
 }
 
 .header {
@@ -58,7 +56,6 @@ const goToMasterProduct = (idProduct: number) => {
 
 .card:hover {
     outline: 1px solid grey;
-    opacity: 1
 }
 
 .content,

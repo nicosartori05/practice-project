@@ -5,7 +5,8 @@
     </div>
     <div class="space"></div>
     <button class="open_menu" @click="showMenu = !showMenu">
-      {{ !showMenu ? 'abrir' : 'cerrar' }}
+      <!-- {{ !showMenu ? 'abrir' : 'cerrar' }} -->
+      <i class="fi fi-br-menu-burger"></i>
     </button>
     <ul class="menu_desktop">
       <li v-for="(menuItem, index) in menuItems" :key="index">
@@ -70,9 +71,10 @@ const logoutSession = async () => {
 }
 
 .open_menu {
-  border: 1px solid black;
+  /* border: 1px solid black;
   padding: .2rem;
-  border-radius: 8px;
+  border-radius: 8px; */
+  font-size: 1.5rem;
 }
 
 .background {
