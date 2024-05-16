@@ -1,8 +1,6 @@
 <template>
   <div class="navbar">
     <div class="logo">
-      <!-- <h1>platzi
-      </h1> -->
       <img src="../assets/logo.svg" alt="logo platzi">
     </div>
     <div class="space"></div>
@@ -23,22 +21,29 @@
         <router-link :to="menuItem.route" @click="showMenu = !showMenu">{{ menuItem.label }}</router-link>
       </li>
     </ul>
-    <button class="cerrar_sesion">cerrar sesion</button>
+    <button class="cerrar_sesion" @click="logoutSession">cerrar sesion</button>
   </div>
 </template>
 
 <script setup lang="ts">
 import { ref } from 'vue';
 import { RouterLink } from 'vue-router';
+import { logout } from '@/services/auth/auth.service';
 
 const showMenu = ref(false);
 
 const menuItems = [
   { label: 'Home', route: '/' },
   { label: 'Products', route: '/products' },
-  // { label: '3', route: '/ruta3' },
-  // { label: '4', route: '/ruta4' }
 ];
+
+const logoutSession = async () => {
+  try {
+    await logout();
+  } catch (error) {
+
+  }
+}
 </script>
 
 <style scoped>
@@ -92,6 +97,7 @@ const menuItems = [
   z-index: 2;
   display: grid;
   grid-template-rows: calc(100% - 30px) 1fr;
+  transition: 0.5s;
 }
 
 .menu {

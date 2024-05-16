@@ -1,10 +1,13 @@
 <script setup>
 import Navbar from './components/Navbar.vue';
+import { isAuthenticated } from './services/auth/auth.service';
+
+const isAuthenticatedUser = isAuthenticated();
 </script>
 
 <template>
   <div class="layout">
-    <header>
+    <header v-if="isAuthenticatedUser">
       <Navbar />
     </header>
     <main>

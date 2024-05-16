@@ -2,6 +2,7 @@
     <div class="card hover:shadow-lg">
         <div class="header">
             <img :src="product?.images[0]" :alt="product?.title">
+            <!-- <img class="w-1/2 m-auto" :src="product?.image" :alt="product?.title"> -->
         </div>
         <div class="content">
             <div class="font-semibold text-xl text-ellipsis overflow-hidden whitespace-nowrap">{{ product?.title }}
@@ -45,7 +46,7 @@ const goToMasterProduct = (idProduct: number) => {
 .card {
     background-color: grey;
     width: 300px;
-    max-height: 650px;
+    max-height: 700px;
     color: white;
     opacity: .8
 }

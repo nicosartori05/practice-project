@@ -1,4 +1,5 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
+import { isAuthenticated } from '@/services/auth/auth.service'
 const router = createRouter({
   history: createWebHashHistory(import.meta.env.BASE_URL),
   routes: [
@@ -16,25 +17,26 @@ const router = createRouter({
     {
       path: '/products',
       name: 'products',
-      component: () => import('../products/pages/Products.vue')
+      component: () => import('../products/pages/Products.vue'),
+      meta: { requiresAuth: true }
     },
     {
       path: '/products/:id',
       name: 'product',
-      component: () => import('../products/pages/Product.vue')
+      component: () => import('../products/pages/Product.vue'),
+      meta: { requiresAuth: true }
     }
   ]
 })
 
+router.beforeEach((to, from, next) => {
+  // Verificar si la ruta requiere autenticación y si el usuario está autenticado
+  if (to.meta.requiresAuth && !isAuthenticated()) {
+    // Si la ruta requiere autenticación y el usuario no está autenticado, redirigirlo a la página de inicio de sesión
+    next('/login')
+  } else {
+    // Si no se requiere autenticación o el usuario está autenticado, permitir el acceso a la ruta
+    next()
+  }
+})
 export default router
-
-// router.beforeEach((to, from, next) => {
-//   // Verificar si la ruta requiere autenticación y si el usuario está autenticado
-//   if (to.meta.requiresAuth && !isAuthenticated()) {
-//     // Si la ruta requiere autenticación y el usuario no está autenticado, redirigirlo a la página de inicio de sesión
-//     next('/login')
-//   } else {
-//     // Si no se requiere autenticación o el usuario está autenticado, permitir el acceso a la ruta
-//     next()
-//   }
-// })

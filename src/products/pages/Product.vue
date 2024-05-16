@@ -1,20 +1,21 @@
 <template>
-    <div class="md:flex flex-row lg:flex flex-cols ">
+    <div class="md:flex flex-row lg:flex flex-cols max-w-screen-xl mx-auto">
         <!-- header -->
-        <div class="header">
-            <img class="w-full" :src="product?.images[0]" :alt="product?.title">
+        <div class="header lg:w-5/6 xl:w-2/4">
+            <img class="w-full mb-2" :src="product?.images[0]" :alt="product?.title">
+            <Carrousel :images="product?.images" />
         </div>
+
         <!--content -->
-        <div class="md:flex flex-col justify-evenly md:mx-5 ">
+        <div class="md:flex flex-col justify-evenly md:mx-5 mt-2">
             <h2 class="font-semibold text-xl">{{ product?.title }}</h2>
             <p class="font-thin text-sm mb-3 border-b-2 pb-1">{{ product?.category?.name }}</p>
             <p class="font-normal">{{ product?.description }}</p>
             <h3 class="font-bold text-4xl mt-3">${{ product?.price }}</h3>
-            <button class="bg-black text-white rounded py-1 mt-5 w-full lg:w-1/2">SUMAR AL CARRITO</button>
+            <button class="bg-black font-semibold text-white rounded py-1 mt-5 w-full lg:w-1/2">ADD TO CART</button>
         </div>
     </div>
     <hr class="my-5" />
-    <Carrousel :images="product?.images" />
 </template>
 
 <script setup lang="ts">

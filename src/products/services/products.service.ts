@@ -1,5 +1,5 @@
 const apiUrl = 'https://api.escuelajs.co/api/v1/'
-
+const apiUrlFake = 'https://fakestoreapi.com/'
 export const getProducts = async () => {
   try {
     const response = await fetch(`${apiUrl}products`)

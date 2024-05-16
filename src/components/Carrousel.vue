@@ -1,8 +1,9 @@
 <template>
-    <div class="carousel sm:w-full lg:w-1/3">
+    <div class="carousel sm:w-full lg:w-full">
         <div class="flex flex-cols gap-2">
-            <div class="w-1/2" v-for="(image, index) in images" :key="index">
-                <img class="" :src="`${image}`" :alt="`Slide ${index + 1}`" @click="toggleImage(`${image}`)">
+            <div class="w-1/2 hover:border-2 border-grey-400 cursor-pointer" v-for="(image, index) in images"
+                :key="index">
+                <img :src="`${image}`" :alt="`Slide ${index + 1}`" @click="toggleImage(`${image}`)">
             </div>
         </div>
     </div>
@@ -39,7 +40,6 @@ const toggleImage = (image: string) => {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    /* Fondo semitransparente */
     z-index: 2;
 }
 
