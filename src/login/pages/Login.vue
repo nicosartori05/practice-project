@@ -1,24 +1,9 @@
 <template>
+    <Loading :isLoading="isLoading" />
     <div style="display: flex; align-items: center; height: 100%; flex-direction: column">
         <div style="height: 250px; width: 250px; margin: 2rem 0 .5rem 0; ">
             <img src="../../assets/logo.svg" alt="LOGO">
         </div>
-        <!-- <form @submit.prevent="userLogIn" v-show="!register">
-            <div class="field">
-                <label for="email">
-                    Email:
-                </label>
-                <input type="text" name="email" v-model="user.email">
-            </div>
-            <div class="field">
-                <label for="password">
-                    Password:
-                </label>
-                <input type="password" name="password" v-model="user.password">
-            </div>
-            <button class="login">Log in</button>
-            <button class="register" @click="register = !register">register now</button>
-        </form> -->
         <form @submit.prevent="register ? newUser : userLogIn">
             <div class="field" v-show="register">
                 <label for="username">
@@ -52,10 +37,12 @@
 </template>
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { createUser, getAllUsers, logIn } from '@/services/auth/auth.service';
+import { createUser, getAllUsers, logIn, deleteToken, tokenExpiry } from '@/services/auth/auth.service';
 import router from '@/router';
+import Loading from '@/components/Loading.vue';
 
 const register = ref(false);
+const isLoading = ref(false);
 const user = ref({
     name: '',
     email: '',
@@ -69,23 +56,25 @@ onMounted(async () => {
 
 const newUser = async () => {
     try {
+        isLoading.value = true;
         const userData = {
             name: user.value.name,
             email: user.value.email,
             password: user.value.password,
-            avatar: 'https://picsum.photos/800',
+            avatar: user.value.avatar,
         }
         await createUser(userData);
-        console.log('Usuario creado exitosamente');
         register.value = false;
     } catch (error) {
         console.error('Error al crear usuario:', error);
     }
+    isLoading.value = false;
+
 }
 
 const userLogIn = async () => {
-    debugger
     try {
+        isLoading.value = true;
         const userData = {
             email: user.value.email,
             password: user.value.password,
@@ -100,6 +89,7 @@ const userLogIn = async () => {
     } catch (error) {
         console.error('Error al logear usuario:', error);
     }
+    isLoading.value = false;
 }
 </script>
 

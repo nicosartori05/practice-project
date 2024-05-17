@@ -1,4 +1,7 @@
 const apiURL = 'https://api.escuelajs.co/api/v1/users/'
+export const tokenExpiry = 5000
+
+import AlertService from '@/utils/alert.service'
 
 // Función para verificar si el usuario está autenticado
 const isAuthenticated = () => {
@@ -21,8 +24,10 @@ const createUser = async (userData: any) => {
     if (!response.ok) {
       throw new Error('Error al crear usuario')
     }
+    AlertService.show('success', 'Usuario creado con exito.')
     return response.json()
   } catch (error) {
+    AlertService.show('error', 'Algo fallo, intente nuevamente.')
     throw new Error('Error al crear usuario')
   }
 }
@@ -37,7 +42,7 @@ const refreshToken = async () => {
         'Content-Type': 'application/json',
         Authorization: `Bearer ${localStorage.getItem('token')}`
       },
-      body: JSON.stringify({ refreshToken: refreshToken })
+      body: JSON.stringify({ refreshToken })
     })
     if (refreshResponse.ok) {
       const refreshedData = await refreshResponse.json()
@@ -50,6 +55,13 @@ const refreshToken = async () => {
   } catch (error) {
     console.error('Error al refrescar el token:', error)
   }
+}
+
+// Función para eliminar el token
+const deleteToken = () => {
+  localStorage.removeItem('token')
+  localStorage.removeItem('tokenExpiry')
+  console.log('Token eliminado')
 }
 
 // Función para iniciar sesión
@@ -66,24 +78,16 @@ const logIn = async (userData: any) => {
       throw new Error('Error al iniciar sesión')
     }
     const data = await response.json()
-    // Guardar el token y el tiempo de expiración en el localStorage
     localStorage.setItem('token', data.access_token)
-    // Establecer un temporizador para eliminar el token después de 5 minutos
-    const fiveMinutesInMilliseconds = 5 * 60 * 1000
-    const tokenExpiry = Date.now() + fiveMinutesInMilliseconds // Multiplicar por 1000 para convertir segundos a milisegundos
+    const tokenExpiry = 5 * 60 * 1000 // 5 minutos en milisegundos
+    // const tokenExpiry = 5000 // 5 segundos
     localStorage.setItem('tokenExpiry', String(tokenExpiry))
 
-    setTimeout(() => {
-      debugger
-      localStorage.removeItem('token')
-      localStorage.removeItem('tokenExpiry')
-      console.log('Token eliminado después de 5 minutos')
-    }, fiveMinutesInMilliseconds)
-    // // Establecer un temporizador para refrescar el token cada 5 minutos
-    // setInterval(refreshToken, 5 * 60 * 1000) // 5 minutos en milisegundos
+    setInterval(deleteToken, tokenExpiry)
 
     return data
   } catch (error) {
+    AlertService.show('error', 'Error al iniciar sesion, intente nuevamente.')
     throw new Error('Error al iniciar sesión')
   }
 }
@@ -91,7 +95,6 @@ const logIn = async (userData: any) => {
 const logout = async () => {
   try {
     const token = localStorage.getItem('token')
-    debugger
     const response = await fetch('https://api.escuelajs.co/api/v1/auth/logout', {
       method: 'POST',
       headers: {
@@ -124,4 +127,4 @@ const getAllUsers = async () => {
   }
 }
 
-export { isAuthenticated, createUser, getAllUsers, logIn, logout }
+export { isAuthenticated, createUser, getAllUsers, logIn, logout, deleteToken }

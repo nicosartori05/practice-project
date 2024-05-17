@@ -7,7 +7,6 @@ export const getProducts = async () => {
       throw new Error('Error al obtener los productos')
     }
     const data = await response.json()
-    // console.log('Productos:', data)
     return data
   } catch (error) {
     console.error('Error al obtener los productos:', error)
@@ -22,7 +21,6 @@ export const getProduct = async (idProduct: number) => {
       throw new Error('Error al obtener el producto')
     }
     const data = await res.json()
-    console.log('Producto', data)
     return data
   } catch (error) {
     console.error('Error al obtener el producto:', error)

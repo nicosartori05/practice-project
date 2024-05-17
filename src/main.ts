@@ -1,4 +1,5 @@
 import './assets/main.css'
+import { deleteToken, tokenExpiry } from './services/auth/auth.service'
 
 import { createApp } from 'vue'
 import App from './App.vue'
@@ -8,3 +9,5 @@ const app = createApp(App)
 
 app.use(router)
 app.mount('#app')
+
+setInterval(deleteToken, tokenExpiry)
