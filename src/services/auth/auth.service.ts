@@ -1,5 +1,5 @@
 const apiURL = 'https://api.escuelajs.co/api/v1/users/'
-export const tokenExpiry = 5000
+export const tokenExpiry = 5 * 60 * 1000
 
 import AlertService from '@/utils/alert.service'
 
@@ -79,11 +79,6 @@ const logIn = async (userData: any) => {
     }
     const data = await response.json()
     localStorage.setItem('token', data.access_token)
-    const tokenExpiry = 5 * 60 * 1000 // 5 minutos en milisegundos
-    // const tokenExpiry = 5000 // 5 segundos
-    localStorage.setItem('tokenExpiry', String(tokenExpiry))
-
-    setInterval(deleteToken, tokenExpiry)
 
     return data
   } catch (error) {
