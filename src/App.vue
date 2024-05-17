@@ -13,7 +13,7 @@ const isAuthenticatedUser = isAuthenticated();
     <main>
       <router-view />
     </main>
-    <footer> &copy; Nicolas sartori 2024</footer>
+    <footer> &copy; Nicolas sartori 2024 </footer>
   </div>
 </template>
 

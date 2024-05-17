@@ -25,7 +25,10 @@ const props = defineProps({
 });
 
 const toggleImage = (image: string) => {
+
+    console.log(image)
     imageToggle.value = image;
+    console.log(imageToggle.value)
 }
 </script>
 
@@ -40,13 +43,14 @@ const toggleImage = (image: string) => {
     width: 100%;
     height: 100%;
     background-color: rgba(0, 0, 0, 0.5);
-    z-index: 2;
+    z-index: 10;
 }
 
 .modal {
+    display: block;
     position: relative;
     text-align: center;
-    z-index: 3;
+    z-index: 12;
 }
 
 .modal button {

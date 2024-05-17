@@ -17,7 +17,6 @@ import List from '@/components/List.vue';
 import Loading from '@/components/Loading.vue';
 import CardProduct from '../components/CardProduct.vue';
 import Filters from '../components/Filters.vue';
-import AlertService from '@/utils/alert.service';
 
 const products = ref<any[]>([]);
 const categories = ref<any[]>([]);

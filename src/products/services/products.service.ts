@@ -1,5 +1,10 @@
 const apiUrl = 'https://api.escuelajs.co/api/v1/'
 const apiUrlFake = 'https://fakestoreapi.com/'
+
+/**
+ * array de objetos con todos los productos
+ * @returns
+ */
 export const getProducts = async () => {
   try {
     const response = await fetch(`${apiUrl}products`)
@@ -14,6 +19,11 @@ export const getProducts = async () => {
   }
 }
 
+/**
+ * objeto con el producto solicitado por ID
+ * @param idProduct
+ * @returns
+ */
 export const getProduct = async (idProduct: number) => {
   try {
     const res = await fetch(`${apiUrl}products/${idProduct}`)

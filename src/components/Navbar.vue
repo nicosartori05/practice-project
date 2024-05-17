@@ -3,9 +3,8 @@
     <div class="logo">
       <img src="../assets/logo.svg" alt="logo platzi">
     </div>
-    <div class="space"></div>
+    <!-- <div class="space"></div> -->
     <button class="open_menu" @click="showMenu = !showMenu">
-      <!-- {{ !showMenu ? 'abrir' : 'cerrar' }} -->
       <i class="fi fi-br-menu-burger"></i>
     </button>
     <ul class="menu_desktop">
@@ -53,12 +52,18 @@ const logoutSession = async () => {
   align-items: center;
   justify-content: space-between;
   height: 60px;
-  padding: 0 .5rem;
+  padding: 0 .9rem;
 }
 
 .logo {
+  width: 60px;
+  height: 60px;
+  margin: 0;
+  padding: 0;
+
   img {
-    width: 15%;
+    width: 90%;
+    margin-top: .5rem
   }
 }
 
@@ -71,9 +76,6 @@ const logoutSession = async () => {
 }
 
 .open_menu {
-  /* border: 1px solid black;
-  padding: .2rem;
-  border-radius: 8px; */
   font-size: 1.5rem;
 }
 
@@ -90,11 +92,11 @@ const logoutSession = async () => {
   position: absolute;
   top: 0;
   right: 0;
-  margin-top: 60px;
+  /* margin-top: 60px; */
   background-color: black;
   color: white;
-  width: 250px;
-  height: calc(100% - 60px);
+  width: 90vw;
+  height: calc(100%);
   padding: 1rem;
   z-index: 2;
   display: grid;
@@ -110,9 +112,6 @@ const logoutSession = async () => {
     margin-top: 1rem;
   }
 
-  li:hover {
-    border-bottom: 1px solid white;
-  }
 }
 
 @media screen and (min-width: 320px) and (max-width: 768px) {

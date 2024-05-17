@@ -32,14 +32,17 @@
             <button class="login" v-show="!register" @click="userLogIn">Log in</button>
             <button class="register" @click="register = !register" v-show="!register">register now</button>
             <button class="registerUser" v-show="register" @click="newUser">sign in</button>
+            <button class="register" v-show="register" @click="register = !register">
+                I already have an account</button>
         </form>
     </div>
 </template>
 <script setup lang="ts">
 import { ref, onMounted } from 'vue';
-import { createUser, getAllUsers, logIn, deleteToken, tokenExpiry } from '@/services/auth/auth.service';
+import { createUser, logIn } from '@/services/auth/auth.service';
 import router from '@/router';
 import Loading from '@/components/Loading.vue';
+import type { userData } from '@/interfaces/userData.interface';
 
 const register = ref(false);
 const isLoading = ref(false);
@@ -51,13 +54,12 @@ const user = ref({
 })
 
 onMounted(async () => {
-    await getAllUsers();
 })
 
 const newUser = async () => {
     try {
         isLoading.value = true;
-        const userData = {
+        const userData: userData = {
             name: user.value.name,
             email: user.value.email,
             password: user.value.password,
@@ -75,7 +77,7 @@ const newUser = async () => {
 const userLogIn = async () => {
     try {
         isLoading.value = true;
-        const userData = {
+        const userData: userData = {
             email: user.value.email,
             password: user.value.password,
         }
@@ -104,9 +106,14 @@ form {
     margin: .5rem 0;
 }
 
+label {
+    font-weight: 500
+}
+
 input {
     border: 1px solid black;
     border-radius: 4px;
+    padding: .5rem
 }
 
 .login {
@@ -116,6 +123,13 @@ input {
     padding: .2rem;
     margin: .5rem 0;
     width: 100%;
+}
+
+button {
+    font-size: 1.2rem;
+    margin: .5rem 0;
+    font-weight: 500;
+
 }
 
 .register {
@@ -130,11 +144,9 @@ input {
 .registerUser {
     background-color: black;
     color: white;
-    font-weight: 500;
     border: 1px solid black;
     border-radius: 4px;
     padding: .2rem;
     width: 100%;
-    margin-top: .5rem;
 }
 </style>
