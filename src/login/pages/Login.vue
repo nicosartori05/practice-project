@@ -1,7 +1,7 @@
 <template>
     <Loading :isLoading="isLoading" />
     <div style="display: flex; align-items: center; height: 100%; flex-direction: column">
-        <div style="height: 250px; width: 250px; margin: 2rem 0 .5rem 0; ">
+        <div style="height: 180px; width: 180px; margin: 2rem 0 .5rem 0; ">
             <img src="../../assets/logo.svg" alt="LOGO">
         </div>
         <form @submit.prevent="register ? newUser : userLogIn">

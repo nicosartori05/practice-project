@@ -1,12 +1,36 @@
 <script setup>
+import { ref } from 'vue';
 import Navbar from './components/Navbar.vue';
-import { isAuthenticated } from './services/auth/auth.service';
-
+import { isAuthenticated, logout } from './services/auth/auth.service';
 const isAuthenticatedUser = isAuthenticated();
+
+const userAction = ref(null);
+let timeoutId = null;
+
+const handleGlobalAction = (event) => {
+  console.log("Global action detected:", event);
+  userAction.value = true;
+  resetLogoutTimer();
+};
+
+const resetLogoutTimer = () => {
+  console.log('se reinicio el tiempo del logout', timeoutId)
+  clearTimeout(timeoutId);
+  timeoutId = setTimeout(() => {
+    if (!userAction.value) {
+      logout();
+    } else {
+      userAction.value = false;
+      resetLogoutTimer();
+    }
+  }, 300000);
+};
+
+resetLogoutTimer();
 </script>
 
 <template>
-  <div class="layout">
+  <div class="layout" @click="handleGlobalAction" @touchstart="handleGlobalAction">
     <header v-if="isAuthenticatedUser">
       <Navbar />
     </header>
